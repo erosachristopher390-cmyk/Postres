@@ -1,30 +1,3 @@
-
-
-def eliminar_repetidos(self):
-    actual = self.cabeza
-    eliminados = 0
-
-    while actual:
-        anterior = actual
-        duplicado = actual.siguiente
-
-        while duplicado:
-            if duplicado.nombre.lower() == actual.nombre.lower():
-                anterior.siguiente = duplicado.siguiente
-                duplicado = anterior.siguiente
-                eliminados += 1
-            else:
-                anterior = duplicado
-                duplicado = duplicado.siguiente
-
-        actual = actual.siguiente
-
-    if eliminados:
-        print(f"Se eliminaron {eliminados} postres repetidos.")
-    else:
-        print("No se encontraron postres repetidos.")
-
-
 class NodoIngrediente:
     def __init__(self, nombre):
         self.nombre = nombre
@@ -211,42 +184,30 @@ class ListaPostres:
 
         print("Error: el postre no existe.")
 
-    # Ejercicio 2: eliminar postres repetidos
+    # Ejercicio 2: eliminar postres repetidos (conserva la primera aparición)
     def eliminar_repetidos(self):
         actual = self.cabeza
-        anterior = None
         eliminados = 0
 
         while actual:
-            repetido = self.buscar_repetido_despues(actual)
+            anterior = actual
+            duplicado = actual.siguiente
 
-            if repetido:
-                if anterior is None:
-                    self.cabeza = actual.siguiente
+            while duplicado:
+                if duplicado.nombre.lower() == actual.nombre.lower():
+                    anterior.siguiente = duplicado.siguiente
+                    eliminados += 1
                 else:
-                    anterior.siguiente = actual.siguiente
+                    anterior = duplicado
+                duplicado = anterior.siguiente
 
-                actual = actual.siguiente
-                eliminados += 1
-            else:
-                anterior = actual
-                actual = actual.siguiente
+            actual = actual.siguiente
 
         if eliminados:
             print(f"Se eliminaron {eliminados} postre(s) repetido(s).")
             print("Se conservaron las listas de ingredientes de los primeros postres.")
         else:
             print("No se encontraron postres repetidos.")
-
-    def buscar_repetido_despues(self, nodo):
-        actual = nodo.siguiente
-
-        while actual:
-            if actual.nombre.lower() == nodo.nombre.lower():
-                return True
-            actual = actual.siguiente
-
-        return False
 
 
 def menu():
@@ -303,5 +264,3 @@ def menu():
 
 if __name__ == "__main__":
     menu()
-
-
